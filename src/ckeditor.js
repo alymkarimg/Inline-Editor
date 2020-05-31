@@ -35,7 +35,7 @@ import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock.js';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
 import Link from '@ckeditor/ckeditor5-link/src/link.js';
 import List from '@ckeditor/ckeditor5-list/src/list.js';
-import MathType from '@wiris/mathtype-ckeditor5';
+// import MathType from '@wiris/mathtype-ckeditor5';
 import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed.js';
 import MediaEmbedToolbar from '@ckeditor/ckeditor5-media-embed/src/mediaembedtoolbar.js';
 import Mention from '@ckeditor/ckeditor5-mention/src/mention.js';
@@ -98,7 +98,7 @@ InlineEditor.builtinPlugins = [
 	Italic,
 	Link,
 	List,
-	MathType,
+	// MathType,
 	MediaEmbed,
 	MediaEmbedToolbar,
 	Mention,
