@@ -11,11 +11,11 @@ import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat.js';
 import Autosave from '@ckeditor/ckeditor5-autosave/src/autosave.js';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
-import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
+// import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
 import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock.js';
-import Comments from '@ckeditor/ckeditor5-comments/src/comments.js';
+// import Comments from '@ckeditor/ckeditor5-comments/src/comments.js';
 import Essentials from '@ckeditor/ckeditor5-essentials/src/essentials.js';
 import FontBackgroundColor from '@ckeditor/ckeditor5-font/src/fontbackgroundcolor.js';
 import FontColor from '@ckeditor/ckeditor5-font/src/fontcolor.js';
@@ -61,7 +61,7 @@ import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar.js';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation.js';
 import Title from '@ckeditor/ckeditor5-heading/src/title.js';
 import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
-import TrackChanges from '@ckeditor/ckeditor5-track-changes/src/trackchanges.js';
+// import TrackChanges from '@ckeditor/ckeditor5-track-changes/src/trackchanges.js';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount.js';
 
@@ -74,11 +74,11 @@ InlineEditor.builtinPlugins = [
 	Autosave,
 	BlockQuote,
 	Bold,
-	CKFinder,
+	// CKFinder,
 	CKFinderUploadAdapter,
 	Code,
 	CodeBlock,
-	Comments,
+	// Comments,
 	Essentials,
 	FontBackgroundColor,
 	FontColor,
@@ -124,7 +124,7 @@ InlineEditor.builtinPlugins = [
 	TextTransformation,
 	Title,
 	TodoList,
-	TrackChanges,
+	// TrackChanges,
 	Underline,
 	WordCount
 ];
