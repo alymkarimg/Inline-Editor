@@ -77,7 +77,7 @@ InlineEditor.builtinPlugins = [
 	Autosave,
 	BlockQuote,
 	Bold,
-	// CKFinder,
+	// CKFinder, // enable this if you want to pay
 	CKFinderUploadAdapter,
 	Code,
 	CodeBlock,
