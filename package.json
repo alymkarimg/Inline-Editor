@@ -109,5 +109,8 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "dependencies": {
+    "@ckeditor/ckeditor5-ckfinder": "^31.0.0"
   }
 }
