@@ -5,13 +5,13 @@
 
 // The editor creator to use.
 import InlineEditorBase from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
-
+import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment.js';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat.js';
 import Autosave from '@ckeditor/ckeditor5-autosave/src/autosave.js';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
-// import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
+import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
 import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock.js';
@@ -29,8 +29,8 @@ import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption.js';
 import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize.js';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle.js';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar.js';
-import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload.js';
-import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert.js';
+import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
+import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
 import Indent from '@ckeditor/ckeditor5-indent/src/indent.js';
 import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock.js';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
@@ -78,7 +78,8 @@ InlineEditor.builtinPlugins = [
 	Autosave,
 	BlockQuote,
 	Bold,
-	// CKFinder, // enable this if you want to pay
+	CKFinder, // enable this if you want to pay
+	SimpleUploadAdapter,
 	CKFinderUploadAdapter,
 	Code,
 	CodeBlock,
@@ -138,7 +139,7 @@ InlineEditor.builtinPlugins = [
 
 // Editor configuration.
 InlineEditor.defaultConfig = {
-	plugins: [ ImageInsert ],
+	plugins: [ SimpleUploadAdapter ],
 	toolbar: {
 		items: [
 			'insertImage',
@@ -177,5 +178,5 @@ InlineEditor.defaultConfig = {
 		]
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
-	language: 'en'
+	language: 'en',
 };
