@@ -25,12 +25,13 @@ import Heading from '@ckeditor/ckeditor5-heading/src/heading.js';
 import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight.js';
 import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline.js';
 import Image from '@ckeditor/ckeditor5-image/src/image.js';
-import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption.js';
+import ImageBlock from '@ckeditor/ckeditor5-image/src/imageBlock';
+import imageInline from '@ckeditor/ckeditor5-image/src/imageInline';
 import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize.js';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle.js';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar.js';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
-import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
+// import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
 import Indent from '@ckeditor/ckeditor5-indent/src/indent.js';
 import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock.js';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
@@ -70,7 +71,6 @@ import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount.js';
 import SelectAll from '@ckeditor/ckeditor5-select-all/src/selectall';
 
 export default class InlineEditor extends InlineEditorBase {}
-
 // Plugins to include in the build.
 InlineEditor.builtinPlugins = [
 	Alignment,
@@ -94,6 +94,8 @@ InlineEditor.builtinPlugins = [
 	Highlight,
 	HorizontalLine,
 	Image,
+	ImageBlock,
+	imageInline.
 	ImageCaption,
 	ImageResize,
 	ImageStyle,
@@ -178,5 +180,5 @@ InlineEditor.defaultConfig = {
 		]
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
-	language: 'en',
+	language: 'en'
 };
