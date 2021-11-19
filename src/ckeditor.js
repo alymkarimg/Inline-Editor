@@ -12,7 +12,7 @@ import Autosave from '@ckeditor/ckeditor5-autosave/src/autosave.js';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
 import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
-import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
+// import  from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock.js';
 // import Comments from '@ckeditor/ckeditor5-comments/src/comments.js';
@@ -78,7 +78,7 @@ InlineEditor.builtinPlugins = [
 	BlockQuote,
 	Bold,
 	CKFinder, // enable this if you want to pay
-	CKFinderUploadAdapter,
+	// ,
 	Code,
 	CodeBlock,
 	Clipboard,
