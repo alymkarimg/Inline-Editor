@@ -4,15 +4,17 @@
  */
 
 // The editor creator to use.
-import InlineEditorBase from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
+// import InlineEditorBase from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
+import ClassicEditorBase from '@ckeditor/ckeditor5-editor-classic/src/classiceditor';
+
+// import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment.js';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat.js';
 import Autosave from '@ckeditor/ckeditor5-autosave/src/autosave.js';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
-import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
-import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
+// import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
+// import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock.js';
 // import Comments from '@ckeditor/ckeditor5-comments/src/comments.js';
@@ -70,17 +72,21 @@ import Widget from '@ckeditor/ckeditor5-widget/src/widget';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount.js';
 import SelectAll from '@ckeditor/ckeditor5-select-all/src/selectall';
 
-export default class InlineEditor extends InlineEditorBase {}
+import FormData from 'form-data';
+import XMLHttpRequest from 'XMLHttpRequest';
+
+export default class ClassicEditor extends ClassicEditorBase {}
 // Plugins to include in the build.
-InlineEditor.builtinPlugins = [
+ClassicEditor.extraPlugins = [ MyCustomUploadAdapterPlugin ];
+ClassicEditor.builtinPlugins = [
 	Alignment,
 	Autoformat,
 	Autosave,
 	BlockQuote,
 	Bold,
-	CKFinder, // enable this if you want to pay
-	SimpleUploadAdapter,
-	CKFinderUploadAdapter,
+	// CKFinder, // enable this if you want to pay
+	// SimpleUploadAdapter,
+	// CKFinderUploadAdapter,
 	Code,
 	CodeBlock,
 	Clipboard,
@@ -139,11 +145,10 @@ InlineEditor.builtinPlugins = [
 ];
 
 // Editor configuration.
-InlineEditor.defaultConfig = {
-	plugins: [ SimpleUploadAdapter ],
+ClassicEditor.defaultConfig = {
+	extraPlugins: [ MyCustomUploadAdapterPlugin ],
 	toolbar: {
 		items: [
-			'insertImage',
 			'heading',
 			'|',
 			'bold',
@@ -172,12 +177,92 @@ InlineEditor.defaultConfig = {
 		]
 	},
 	table: {
-		contentToolbar: [
-			'tableColumn',
-			'tableRow',
-			'mergeTableCells'
-		]
+		contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: 'en'
 };
+
+function MyCustomUploadAdapterPlugin( editor ) {
+	editor.plugins.get( 'FileRepository' ).createUploadAdapter = loader => {
+		return new MyUploadAdapter( loader );
+	};
+}
+
+class MyUploadAdapter {
+	constructor( props ) {
+		// CKEditor 5's FileLoader instance.
+		this.loader = props;
+		// URL where to send files.
+		this.url = 'http://localhost:8000/api/editable-area/upload-image';
+	}
+
+	// Starts the upload process.
+	upload() {
+		return new Promise( ( resolve, reject ) => {
+			this._initRequest();
+			this._initListeners( resolve, reject );
+			this._sendRequest();
+		} );
+	}
+
+	// Aborts the upload process.
+	abort() {
+		if ( this.xhr ) {
+			this.xhr.abort();
+		}
+	}
+
+	// Example implementation using XMLHttpRequest.
+	_initRequest() {
+		const xhr = ( this.xhr = new XMLHttpRequest() );
+
+		xhr.open( 'POST', this.url, true );
+		xhr.responseType = 'json';
+		xhr.setRequestHeader( 'Access-Control-Allow-Origin', '*' );
+		// xhr.setRequestHeader('Authorization', getCookie('token'));
+	}
+
+	// Initializes XMLHttpRequest listeners.
+	_initListeners( resolve, reject ) {
+		const xhr = this.xhr;
+		const loader = this.loader;
+		const genericErrorText = `Couldn't upload file: ${ loader.file.name }.`;
+
+		xhr.addEventListener( 'error', () => reject( genericErrorText ) );
+		xhr.addEventListener( 'abort', () => reject() );
+		xhr.addEventListener( 'load', () => {
+			const response = xhr.response;
+			if ( !response || response.error ) {
+				return reject(
+					response && response.error ? response.error.message : genericErrorText
+				);
+			}
+
+			// If the upload is successful, resolve the upload promise with an object containing
+			// at least the 'default' URL, pointing to the image on the server.
+			resolve( {
+				default: response.s3Url
+			} );
+		} );
+
+		if ( xhr.upload ) {
+			xhr.upload.addEventListener( 'progress', evt => {
+				if ( evt.lengthComputable ) {
+					loader.uploadTotal = evt.total;
+					loader.uploaded = evt.loaded;
+				}
+			} );
+		}
+	}
+
+	// Prepares the data and sends the request.
+	_sendRequest() {
+		const data = new FormData();
+
+		this.loader.file.then( result => {
+			data.append( 'file', result );
+			this.xhr.send( data );
+		} );
+	}
+}
