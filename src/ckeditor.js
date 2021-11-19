@@ -12,8 +12,7 @@ import Autosave from '@ckeditor/ckeditor5-autosave/src/autosave.js';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
 // import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
-// import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
-
+import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock.js';
 // import Comments from '@ckeditor/ckeditor5-comments/src/comments.js';
@@ -31,7 +30,7 @@ import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize.js';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle.js';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar.js';
 // import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload.js';
-import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
+import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert.js';
 import Indent from '@ckeditor/ckeditor5-indent/src/indent.js';
 import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock.js';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic.js';
@@ -80,7 +79,7 @@ InlineEditor.builtinPlugins = [
 	BlockQuote,
 	Bold,
 	// CKFinder, // enable this if you want to pay
-	// CKFinderUploadAdapter,
+	CKFinderUploadAdapter,
 	Code,
 	CodeBlock,
 	Clipboard,
@@ -98,8 +97,7 @@ InlineEditor.builtinPlugins = [
 	ImageResize,
 	ImageStyle,
 	ImageToolbar,
-	// ImageUpload,
-	ImageInsert,
+	ImageUpload,
 	Indent,
 	IndentBlock,
 	Italic,
