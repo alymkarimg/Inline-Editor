@@ -26,7 +26,7 @@ import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight.js';
 import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline.js';
 import Image from '@ckeditor/ckeditor5-image/src/image.js';
 import ImageBlock from '@ckeditor/ckeditor5-image/src/imageBlock';
-import imageInline from '@ckeditor/ckeditor5-image/src/imageInline';
+import ImageInline from '@ckeditor/ckeditor5-image/src/imageInline';
 import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize.js';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle.js';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar.js';
@@ -95,8 +95,7 @@ InlineEditor.builtinPlugins = [
 	HorizontalLine,
 	Image,
 	ImageBlock,
-	imageInline.
-	ImageCaption,
+	ImageInline,
 	ImageResize,
 	ImageStyle,
 	ImageToolbar,
