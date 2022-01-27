@@ -309,7 +309,7 @@ function createSimpleBox(writer) {
 
 export default class ClassicEditor extends ClassicEditorBase {}
 // Plugins to include in the build.
-ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin];
+ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin, SimpleBox];
 ClassicEditor.builtinPlugins = [
 	SimpleBox,
 	Alignment,
