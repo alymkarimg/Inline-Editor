@@ -84,12 +84,6 @@ import Widget from "@ckeditor/ckeditor5-widget/src/widget";
 import Command from "@ckeditor/ckeditor5-core/src/command";
 import ButtonView from "@ckeditor/ckeditor5-ui/src/button/buttonview";
 
-class SimpleBox extends Plugin {
-	static get requires() {
-		return [SimpleBoxEditing, SimpleBoxUI];
-	}
-}
-
 class SimpleBoxUI extends Plugin {
 	init() {
 		const editor = this.editor;
@@ -269,6 +263,12 @@ class SimpleBoxEditing extends Plugin {
 				return toWidgetEditable(div, viewWriter);
 			},
 		});
+	}
+}
+
+class SimpleBox extends Plugin {
+	static get requires() {
+		return [SimpleBoxEditing, SimpleBoxUI];
 	}
 }
 
