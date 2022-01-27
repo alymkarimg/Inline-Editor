@@ -85,10 +85,12 @@ import Command from "@ckeditor/ckeditor5-core/src/command";
 import ButtonView from "@ckeditor/ckeditor5-ui/src/button/buttonview";
 
 export default class ClassicEditor extends ClassicEditorBase {}
+
+ClassicEditor()
 // Plugins to include in the build.
 ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin, MyCustomSimpleBox];
 ClassicEditor.builtinPlugins = [
-	SimpleBox							,
+	MyCustomSimpleBox							,
 	Alignment,
 	Autoformat,
 	Autosave,
@@ -482,5 +484,6 @@ class SimpleBoxEditing extends Plugin {
 }
 
 function MyCustomSimpleBox(editor) {
+
 	return new SimpleBox(editor);
 }
