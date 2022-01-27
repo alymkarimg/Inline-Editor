@@ -21,48 +21,48 @@ module.exports = {
 	},
 	devtool: 'source-map',
 	performance: { hints: false },
-	entry: path.resolve(__dirname, 'src', 'ckeditor.js'),
+	entry: path.resolve( __dirname, 'src', 'ckeditor.js' ),
 	output: {
 		// The name under which the editor will be exported.
 		library: 'InlineEditor',
 
-		path: path.resolve(__dirname, 'build'),
+		path: path.resolve( __dirname, 'build' ),
 		filename: 'ckeditor.js',
 		libraryTarget: 'umd',
-		libraryExport: 'default',
+		libraryExport: 'default'
 	},
 	optimization: {
 		minimizer: [
-			new TerserPlugin({
+			new TerserPlugin( {
 				sourceMap: true,
 				terserOptions: {
 					output: {
 						// Preserve CKEditor 5 license comments.
-						comments: /^!/,
-					},
+						comments: /^!/
+					}
 				},
-				extractComments: false,
-			}),
-		],
+				extractComments: false
+			} )
+		]
 	},
 	plugins: [
-		new CKEditorWebpackPlugin({
+		new CKEditorWebpackPlugin( {
 			// UI language. Language codes follow the https://en.wikipedia.org/wiki/ISO_639-1 format.
 			// When changing the built-in language, remember to also change it in the editor's configuration (src/ckeditor.js).
 			language: 'en',
-			additionalLanguages: 'all',
-		}),
-		new webpack.BannerPlugin({
+			additionalLanguages: 'all'
+		} ),
+		new webpack.BannerPlugin( {
 			banner: bundler.getLicenseBanner(),
-			raw: true,
-		}),
+			raw: true
+		} )
 	],
 
 	module: {
 		rules: [
 			{
 				test: /\.svg$/,
-				use: ['raw-loader'],
+				use: [ 'raw-loader' ]
 			},
 			{
 				test: /\.css$/,
@@ -72,23 +72,23 @@ module.exports = {
 						options: {
 							injectType: 'singletonStyleTag',
 							attributes: {
-								'data-cke': true,
-							},
-						},
+								'data-cke': true
+							}
+						}
 					},
 					{
 						loader: 'postcss-loader',
-						options: styles.getPostCssConfig({
+						options: styles.getPostCssConfig( {
 							themeImporter: {
 								themePath: require.resolve(
 									'@ckeditor/ckeditor5-theme-lark'
-								),
+								)
 							},
-							minify: true,
-						}),
-					},
-				],
-			},
-		],
-	},
+							minify: true
+						} )
+					}
+				]
+			}
+		]
+	}
 };
