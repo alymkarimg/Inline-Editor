@@ -291,7 +291,7 @@ export class SimpleBoxEditing extends Plugin {
 
 export default class ClassicEditor extends ClassicEditorBase {}
 // Plugins to include in the build.
-ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin, SimpleBox];
+ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin, MyCustomSimpleBox];
 ClassicEditor.builtinPlugins = [
 	SimpleBox							,
 	Alignment,
@@ -481,4 +481,8 @@ class MyUploadAdapter {
 			this.xhr.send(data);
 		});
 	}
+}
+
+function MyCustomSimpleBox(editor) {
+	return new SimpleBox(editor);
 }
