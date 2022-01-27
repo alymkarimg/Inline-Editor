@@ -121,14 +121,19 @@ class SimpleBoxUI extends Plugin {
 	}
 }
 
+
+class SimpleBox extends Plugin {
+	static get requires() {
+		return [SimpleBoxEditing, SimpleBoxUI];
+	}
+}
+
 class SimpleBoxEditing extends Plugin {
 	static get requires() {
 		return [Widget];
 	}
 
 	init() {
-		console.log("SimpleBoxEditing#init() got called");
-
 		this._defineSchema();
 		this._defineConverters();
 
@@ -263,12 +268,6 @@ class SimpleBoxEditing extends Plugin {
 				return toWidgetEditable(div, viewWriter);
 			},
 		});
-	}
-}
-
-class SimpleBox extends Plugin {
-	static get requires() {
-		return [SimpleBoxEditing, SimpleBoxUI];
 	}
 }
 
