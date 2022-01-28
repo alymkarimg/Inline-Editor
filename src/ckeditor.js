@@ -89,8 +89,7 @@ export default class ClassicEditor extends ClassicEditorBase {}
 ClassicEditor()
 // Plugins to include in the build.
 ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin, MyCustomSimpleBox];
-ClassicEditor.builtinPlugins = [
-	MyCustomSimpleBox							,
+ClassicEditor.builtinPlugins = [					,
 	Alignment,
 	Autoformat,
 	Autosave,
@@ -154,6 +153,7 @@ ClassicEditor.builtinPlugins = [
 	Underline,
 	WordCount,
 	Widget,
+	MyCustomSimpleBox		
 ];
 
 // Editor configuration.
