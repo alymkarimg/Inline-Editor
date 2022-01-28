@@ -318,16 +318,14 @@ function createSimpleBox(writer) {
 }
 
 class SimpleBox extends Plugin {
-	static get requires() {
+	static get requires () {
 		return [SimpleBoxEditing, SimpleBoxUI];
 	}
 }
 
 class SimpleBoxUI extends Plugin {
-	static get requires() {
+	static get requires () {
 		const editor = this.editor;
-		const t = editor.t;
-
 		// The "simpleBox" button must be registered among the UI components of the editor
 		// to be displayed in the toolbar.
 		editor.ui.componentFactory.add("simpleBox", (locale) => {
@@ -340,7 +338,7 @@ class SimpleBoxUI extends Plugin {
 			buttonView.set({
 				// The t() function helps localize the editor. All strings enclosed in t() can be
 				// translated and change when the language of the editor changes.
-				label: t("Simple Box"),
+				label: "Simple Box",
 				withText: true,
 				tooltip: true,
 			});
