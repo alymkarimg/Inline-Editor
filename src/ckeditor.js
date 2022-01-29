@@ -372,8 +372,7 @@ ClassicEditor.builtinPlugins = [
 	TodoList,
 	// TrackChanges,
 	Underline,
-	WordCount,
-	Widget
+	WordCount
 ];
 // Plugins to include in the build.
 ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin, MyCustomSimpleBox];
