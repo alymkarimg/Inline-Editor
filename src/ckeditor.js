@@ -71,15 +71,11 @@ import Underline from "@ckeditor/ckeditor5-basic-styles/src/underline.js";
 // import Widget from '@ckeditor/ckeditor5-widget/src/widget';
 import WordCount from "@ckeditor/ckeditor5-word-count/src/wordcount.js";
 import SelectAll from "@ckeditor/ckeditor5-select-all/src/selectall";
-
-import FormData from "form-data";
-import XMLHttpRequest from "XMLHttpRequest";
-
 import {
 	toWidget,
 	toWidgetEditable,
 } from "@ckeditor/ckeditor5-widget/src/utils";
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import { Plugin as Plugin2 } from '@ckeditor/ckeditor5-core/src';
 import Widget from "@ckeditor/ckeditor5-widget/src/widget";
 import ButtonView from "@ckeditor/ckeditor5-ui/src/button/buttonview";
 
@@ -122,13 +118,13 @@ function createSimpleBox(writer) {
 	return simpleBox;
 }
 
-class SimpleBox extends Plugin {
+class SimpleBox extends Plugin2 {
 	static get requires () {
 		return [SimpleBoxEditing, SimpleBoxUI];
 	}
 }
 
-class SimpleBoxUI extends Plugin {
+class SimpleBoxUI extends Plugin2 {
 	static get requires () {
 		const editor = this.editor;
 		// The "simpleBox" button must be registered among the UI components of the editor
@@ -163,7 +159,7 @@ class SimpleBoxUI extends Plugin {
 	}
 }
 
-class SimpleBoxEditing extends Plugin {
+class SimpleBoxEditing extends Plugin2 {
 	static get requires() {
 		return [Widget];
 	}
@@ -372,10 +368,11 @@ ClassicEditor.builtinPlugins = [
 	TodoList,
 	// TrackChanges,
 	Underline,
-	WordCount
+	WordCount,
+	MyCustomSimpleBox
 ];
 // Plugins to include in the build.
-ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin, MyCustomSimpleBox];
+// ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin, MyCustomSimpleBox];
 
 // Editor configuration.
 ClassicEditor.defaultConfig = {
@@ -416,86 +413,86 @@ ClassicEditor.defaultConfig = {
 	language: "en",
 };
 
-function MyCustomUploadAdapterPlugin(editor) {
-	editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
-		return new MyUploadAdapter(loader);
-	};
-}
+// function MyCustomUploadAdapterPlugin(editor) {
+// 	editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+// 		return new MyUploadAdapter(loader);
+// 	};
+// }
 
-class MyUploadAdapter {
-	constructor(props) {
-		// CKEditor 5's FileLoader instance.
-		this.loader = props;
-		// URL where to send files.
-		this.url = "http://localhost:8000/api/editable-area/upload-image";
-	}
+// class MyUploadAdapter {
+// 	constructor(props) {
+// 		// CKEditor 5's FileLoader instance.
+// 		this.loader = props;
+// 		// URL where to send files.
+// 		this.url = "http://localhost:8000/api/editable-area/upload-image";
+// 	}
 
-	// Starts the upload process.
-	upload() {
-		return new Promise((resolve, reject) => {
-			this._initRequest();
-			this._initListeners(resolve, reject);
-			this._sendRequest();
-		});
-	}
+// 	// Starts the upload process.
+// 	upload() {
+// 		return new Promise((resolve, reject) => {
+// 			this._initRequest();
+// 			this._initListeners(resolve, reject);
+// 			this._sendRequest();
+// 		});
+// 	}
 
-	// Aborts the upload process.
-	abort() {
-		if (this.xhr) {
-			this.xhr.abort();
-		}
-	}
+// 	// Aborts the upload process.
+// 	abort() {
+// 		if (this.xhr) {
+// 			this.xhr.abort();
+// 		}
+// 	}
 
-	// Example implementation using XMLHttpRequest.
-	_initRequest() {
-		const xhr = (this.xhr = new XMLHttpRequest());
+// 	// Example implementation using XMLHttpRequest.
+// 	_initRequest() {
+// 		const xhr = (this.xhr = new XMLHttpRequest());
 
-		xhr.open("POST", this.url, true);
-		xhr.responseType = "json";
-		xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-		// xhr.setRequestHeader('Authorization', getCookie('token'));
-	}
+// 		xhr.open("POST", this.url, true);
+// 		xhr.responseType = "json";
+// 		xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+// 		// xhr.setRequestHeader('Authorization', getCookie('token'));
+// 	}
 
-	// Initializes XMLHttpRequest listeners.
-	_initListeners(resolve, reject) {
-		const xhr = this.xhr;
-		const loader = this.loader;
-		const genericErrorText = `Couldn't upload file: ${loader.file.name}.`;
+// 	// Initializes XMLHttpRequest listeners.
+// 	_initListeners(resolve, reject) {
+// 		const xhr = this.xhr;
+// 		const loader = this.loader;
+// 		const genericErrorText = `Couldn't upload file: ${loader.file.name}.`;
 
-		xhr.addEventListener("error", () => reject(genericErrorText));
-		xhr.addEventListener("abort", () => reject());
-		xhr.addEventListener("load", () => {
-			const response = xhr.response;
-			if (!response || response.error) {
-				return reject(
-					response && response.error
-						? response.error.message
-						: genericErrorText
-				);
-			}
+// 		xhr.addEventListener("error", () => reject(genericErrorText));
+// 		xhr.addEventListener("abort", () => reject());
+// 		xhr.addEventListener("load", () => {
+// 			const response = xhr.response;
+// 			if (!response || response.error) {
+// 				return reject(
+// 					response && response.error
+// 						? response.error.message
+// 						: genericErrorText
+// 				);
+// 			}
 
-			// If the upload is successful, resolve the upload promise with an object containing
-			// at least the 'default' URL, pointing to the image on the server.
-			resolve({ default: response.s3Url });
-		});
+// 			// If the upload is successful, resolve the upload promise with an object containing
+// 			// at least the 'default' URL, pointing to the image on the server.
+// 			resolve({ default: response.s3Url });
+// 		});
 
-		if (xhr.upload) {
-			xhr.upload.addEventListener("progress", (evt) => {
-				if (evt.lengthComputable) {
-					loader.uploadTotal = evt.total;
-					loader.uploaded = evt.loaded;
-				}
-			});
-		}
-	}
+// 		if (xhr.upload) {
+// 			xhr.upload.addEventListener("progress", (evt) => {
+// 				if (evt.lengthComputable) {
+// 					loader.uploadTotal = evt.total;
+// 					loader.uploaded = evt.loaded;
+// 				}
+// 			});
+// 		}
+// 	}
 
-	// Prepares the data and sends the request.
-	_sendRequest() {
-		const data = new FormData();
+// 	// Prepares the data and sends the request.
+// 	_sendRequest() {
+// 		const data = new FormData();
 
-		this.loader.file.then((result) => {
-			data.append("file", result);
-			this.xhr.send(data);
-		});
-	}
-}
+// 		this.loader.file.then((result) => {
+// 			data.append("file", result);
+// 			this.xhr.send(data);
+// 		});
+// 	}
+// }
