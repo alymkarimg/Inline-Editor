@@ -21,12 +21,12 @@ module.exports = {
 	},
 	devtool: 'source-map',
 	performance: { hints: false },
-	entry: path.resolve( __dirname, 'build', 'ckeditor.js' ),
+	entry: path.resolve( __dirname, 'src', 'ckeditor.js' ),
 	output: {
 		// The name under which the editor will be exported.
 		library: 'InlineEditor',
 
-		path: path.resolve( __dirname, 'build' ),
+		path: path.resolve( __dirname, 'src' ),
 		filename: 'ckeditor.js',
 		libraryTarget: 'umd',
 		libraryExport: 'default'
