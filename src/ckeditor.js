@@ -75,211 +75,16 @@ import SelectAll from "@ckeditor/ckeditor5-select-all/src/selectall";
 import FormData from "form-data";
 import XMLHttpRequest from "XMLHttpRequest";
 
-import Plugin from "@ckeditor/ckeditor5-core/src/plugin";
 import {
 	toWidget,
 	toWidgetEditable,
 } from "@ckeditor/ckeditor5-widget/src/utils";
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import Widget from "@ckeditor/ckeditor5-widget/src/widget";
-import Command from "@ckeditor/ckeditor5-core/src/command";
 import ButtonView from "@ckeditor/ckeditor5-ui/src/button/buttonview";
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
-ClassicEditor();
-// Plugins to include in the build.
-ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin, MyCustomSimpleBox];
-ClassicEditor.builtinPlugins = [
-	,
-	Alignment,
-	Autoformat,
-	Autosave,
-	BlockQuote,
-	Bold,
-	// CKFinder, // enable this if you want to pay
-	// SimpleUploadAdapter,
-	// CKFinderUploadAdapter,
-	Code,
-	CodeBlock,
-	Clipboard,
-	// Comments,
-	Essentials,
-	FontBackgroundColor,
-	FontColor,
-	FontFamily,
-	FontSize,
-	Heading,
-	Highlight,
-	HorizontalLine,
-	Image,
-	// ImageBlock,
-	// ImageInline,
-	ImageResize,
-	ImageStyle,
-	ImageToolbar,
-	ImageUpload,
-	Indent,
-	IndentBlock,
-	Italic,
-	Link,
-	List,
-	// MathType,
-	MediaEmbed,
-	MediaEmbedToolbar,
-	Mention,
-	PageBreak,
-	Paragraph,
-	PasteFromOffice,
-	RemoveFormat,
-	// RestrictedEditingMode,
-	SelectAll,
-	SpecialCharacters,
-	SpecialCharactersArrows,
-	SpecialCharactersCurrency,
-	SpecialCharactersEssentials,
-	SpecialCharactersLatin,
-	SpecialCharactersMathematical,
-	SpecialCharactersText,
-	Strikethrough,
-	Subscript,
-	Superscript,
-	Table,
-	TableCellProperties,
-	TableProperties,
-	TableToolbar,
-	TextTransformation,
-	Title,
-	TodoList,
-	// TrackChanges,
-	Underline,
-	WordCount,
-	Widget,
-	MyCustomSimpleBox,
-];
-
-// Editor configuration.
-ClassicEditor.defaultConfig = {
-	builtinPlugins: [SimpleBox],
-	toolbar: {
-		items: [
-			"heading",
-			"|",
-			"bold",
-			"italic",
-			"link",
-			"bulletedList",
-			"numberedList",
-			"|",
-			"indent",
-			"outdent",
-			"|",
-			"imageUpload",
-			"blockQuote",
-			"insertTable",
-			"mediaEmbed",
-			"undo",
-			"redo",
-			"simpleBox",
-		],
-	},
-	image: {
-		toolbar: [
-			"imageStyle:full",
-			"imageStyle:side",
-			"|",
-			"imageTextAlternative",
-		],
-	},
-	table: {
-		contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
-	},
-	// This value must be kept in sync with the language defined in webpack.config.js.
-	language: "en",
-};
-
-function MyCustomUploadAdapterPlugin(editor) {
-	editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
-		return new MyUploadAdapter(loader);
-	};
-}
-
-class MyUploadAdapter {
-	constructor(props) {
-		// CKEditor 5's FileLoader instance.
-		this.loader = props;
-		// URL where to send files.
-		this.url = "http://localhost:8000/api/editable-area/upload-image";
-	}
-
-	// Starts the upload process.
-	upload() {
-		return new Promise((resolve, reject) => {
-			this._initRequest();
-			this._initListeners(resolve, reject);
-			this._sendRequest();
-		});
-	}
-
-	// Aborts the upload process.
-	abort() {
-		if (this.xhr) {
-			this.xhr.abort();
-		}
-	}
-
-	// Example implementation using XMLHttpRequest.
-	_initRequest() {
-		const xhr = (this.xhr = new XMLHttpRequest());
-
-		xhr.open("POST", this.url, true);
-		xhr.responseType = "json";
-		xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-		// xhr.setRequestHeader('Authorization', getCookie('token'));
-	}
-
-	// Initializes XMLHttpRequest listeners.
-	_initListeners(resolve, reject) {
-		const xhr = this.xhr;
-		const loader = this.loader;
-		const genericErrorText = `Couldn't upload file: ${loader.file.name}.`;
-
-		xhr.addEventListener("error", () => reject(genericErrorText));
-		xhr.addEventListener("abort", () => reject());
-		xhr.addEventListener("load", () => {
-			const response = xhr.response;
-			if (!response || response.error) {
-				return reject(
-					response && response.error
-						? response.error.message
-						: genericErrorText
-				);
-			}
-
-			// If the upload is successful, resolve the upload promise with an object containing
-			// at least the 'default' URL, pointing to the image on the server.
-			resolve({ default: response.s3Url });
-		});
-
-		if (xhr.upload) {
-			xhr.upload.addEventListener("progress", (evt) => {
-				if (evt.lengthComputable) {
-					loader.uploadTotal = evt.total;
-					loader.uploaded = evt.loaded;
-				}
-			});
-		}
-	}
-
-	// Prepares the data and sends the request.
-	_sendRequest() {
-		const data = new FormData();
-
-		this.loader.file.then((result) => {
-			data.append("file", result);
-			this.xhr.send(data);
-		});
-	}
-}
 
 class InsertSimpleBoxCommand extends Command {
 	execute() {
@@ -503,4 +308,195 @@ class SimpleBoxEditing extends Plugin {
 
 function MyCustomSimpleBox(editor) {
 	return new SimpleBox(editor);
+}
+
+ClassicEditor.builtinPlugins = [
+	Alignment,
+	Autoformat,
+	Autosave,
+	BlockQuote,
+	Bold,
+	// CKFinder, // enable this if you want to pay
+	// SimpleUploadAdapter,
+	// CKFinderUploadAdapter,
+	Code,
+	CodeBlock,
+	Clipboard,
+	// Comments,
+	Essentials,
+	FontBackgroundColor,
+	FontColor,
+	FontFamily,
+	FontSize,
+	Heading,
+	Highlight,
+	HorizontalLine,
+	Image,
+	// ImageBlock,
+	// ImageInline,
+	ImageResize,
+	ImageStyle,
+	ImageToolbar,
+	ImageUpload,
+	Indent,
+	IndentBlock,
+	Italic,
+	Link,
+	List,
+	// MathType,
+	MediaEmbed,
+	MediaEmbedToolbar,
+	Mention,
+	PageBreak,
+	Paragraph,
+	PasteFromOffice,
+	RemoveFormat,
+	// RestrictedEditingMode,
+	SelectAll,
+	SpecialCharacters,
+	SpecialCharactersArrows,
+	SpecialCharactersCurrency,
+	SpecialCharactersEssentials,
+	SpecialCharactersLatin,
+	SpecialCharactersMathematical,
+	SpecialCharactersText,
+	Strikethrough,
+	Subscript,
+	Superscript,
+	Table,
+	TableCellProperties,
+	TableProperties,
+	TableToolbar,
+	TextTransformation,
+	Title,
+	TodoList,
+	// TrackChanges,
+	Underline,
+	WordCount,
+	Widget
+];
+// Plugins to include in the build.
+ClassicEditor.extraPlugins = [MyCustomUploadAdapterPlugin, MyCustomSimpleBox];
+
+// Editor configuration.
+ClassicEditor.defaultConfig = {
+	toolbar: {
+		items: [
+			"heading",
+			"|",
+			"bold",
+			"italic",
+			"link",
+			"bulletedList",
+			"numberedList",
+			"|",
+			"indent",
+			"outdent",
+			"|",
+			"imageUpload",
+			"blockQuote",
+			"insertTable",
+			"mediaEmbed",
+			"undo",
+			"redo",
+			"simpleBox",
+		],
+	},
+	image: {
+		toolbar: [
+			"imageStyle:full",
+			"imageStyle:side",
+			"|",
+			"imageTextAlternative",
+		],
+	},
+	table: {
+		contentToolbar: ["tableColumn", "tableRow", "mergeTableCells"],
+	},
+	// This value must be kept in sync with the language defined in webpack.config.js.
+	language: "en",
+};
+
+function MyCustomUploadAdapterPlugin(editor) {
+	editor.plugins.get("FileRepository").createUploadAdapter = (loader) => {
+		return new MyUploadAdapter(loader);
+	};
+}
+
+class MyUploadAdapter {
+	constructor(props) {
+		// CKEditor 5's FileLoader instance.
+		this.loader = props;
+		// URL where to send files.
+		this.url = "http://localhost:8000/api/editable-area/upload-image";
+	}
+
+	// Starts the upload process.
+	upload() {
+		return new Promise((resolve, reject) => {
+			this._initRequest();
+			this._initListeners(resolve, reject);
+			this._sendRequest();
+		});
+	}
+
+	// Aborts the upload process.
+	abort() {
+		if (this.xhr) {
+			this.xhr.abort();
+		}
+	}
+
+	// Example implementation using XMLHttpRequest.
+	_initRequest() {
+		const xhr = (this.xhr = new XMLHttpRequest());
+
+		xhr.open("POST", this.url, true);
+		xhr.responseType = "json";
+		xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+		// xhr.setRequestHeader('Authorization', getCookie('token'));
+	}
+
+	// Initializes XMLHttpRequest listeners.
+	_initListeners(resolve, reject) {
+		const xhr = this.xhr;
+		const loader = this.loader;
+		const genericErrorText = `Couldn't upload file: ${loader.file.name}.`;
+
+		xhr.addEventListener("error", () => reject(genericErrorText));
+		xhr.addEventListener("abort", () => reject());
+		xhr.addEventListener("load", () => {
+			const response = xhr.response;
+			if (!response || response.error) {
+				return reject(
+					response && response.error
+						? response.error.message
+						: genericErrorText
+				);
+			}
+
+			// If the upload is successful, resolve the upload promise with an object containing
+			// at least the 'default' URL, pointing to the image on the server.
+			resolve({ default: response.s3Url });
+		});
+
+		if (xhr.upload) {
+			xhr.upload.addEventListener("progress", (evt) => {
+				if (evt.lengthComputable) {
+					loader.uploadTotal = evt.total;
+					loader.uploaded = evt.loaded;
+				}
+			});
+		}
+	}
+
+	// Prepares the data and sends the request.
+	_sendRequest() {
+		const data = new FormData();
+
+		this.loader.file.then((result) => {
+			data.append("file", result);
+			this.xhr.send(data);
+		});
+	}
 }
