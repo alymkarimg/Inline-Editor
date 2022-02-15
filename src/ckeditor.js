@@ -69,7 +69,6 @@ import Title from '@ckeditor/ckeditor5-heading/src/title.js';
 import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount.js';
-import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog.js';
 
 class Editor extends InlineEditor {}
 
@@ -187,4 +186,4 @@ Editor.defaultConfig = {
 	}
 };
 
-export default { Editor, EditorWatchdog };
+export default { Editor };
