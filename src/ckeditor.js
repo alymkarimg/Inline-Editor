@@ -377,15 +377,8 @@ Editor.builtinPlugins = [
 
 // Editor configuration.
 Editor.defaultConfig = {
-  htmlSupport: {
-    allow: [
-      {
-        name: /.*/,
-        attributes: true,
-        classes: true,
-        styles: true,
-      },
-    ],
+  mediaEmbed: {
+    previewsInData: true,
   },
   toolbar: {
     items: [
