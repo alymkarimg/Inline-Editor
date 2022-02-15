@@ -1,0 +1,1 @@
+(function(d){	const l = d['uz'] = d['uz'] || {};	l.dictionary=Object.assign(		l.dictionary||{},		{"%0 of %1":"",Cancel:"Bekor qilish","Remove color":"Rangni olib tashlash",Save:"Saqlash","Show more items":""}	);l.getPluralForm=function(n){return 0;;};})(window.CKEDITOR_TRANSLATIONS||(window.CKEDITOR_TRANSLATIONS={}));
