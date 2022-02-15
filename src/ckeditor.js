@@ -380,6 +380,20 @@ Editor.defaultConfig = {
   mediaEmbed: {
     previewsInData: true,
   },
+  htmlEmbed: {
+    showPreviews: true,
+    // sanitizeHtml: (inputHtml) => {
+    //   // Strip unsafe elements and attributes, e.g.:
+    //   // the `<script>` elements and `on*` attributes.
+    //   const outputHtml = sanitize(inputHtml);
+
+    //   return {
+    //     html: outputHtml,
+    //     // true or false depending on whether the sanitizer stripped anything.
+    //     hasChanged: true,
+    //   };
+    // },
+  },
   toolbar: {
     items: [
       "heading",
