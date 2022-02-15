@@ -26,7 +26,7 @@ import FontSize from '@ckeditor/ckeditor5-font/src/fontsize.js';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading.js';
 import Highlight from '@ckeditor/ckeditor5-highlight/src/highlight.js';
 import HorizontalLine from '@ckeditor/ckeditor5-horizontal-line/src/horizontalline.js';
-import Image from '@ckeditor/ckeditor5-image/src/image.js';
+import Image from '@ckeditor/ckeditor5-image/src/image';
 // import ImageBlock from '@ckeditor/ckeditor5-image/src/imageBlock';
 // import ImageInline from '@ckeditor/ckeditor5-image/src/imageInline';
 import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize.js';
@@ -179,3 +179,4 @@ ClassicEditor.defaultConfig = {
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: 'en'
 };
+
