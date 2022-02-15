@@ -2,15 +2,13 @@
  * @license Copyright (c) 2014-2022, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
-import ClassicEditor from '@ckeditor/ckeditor5-editor-classic/src/classiceditor.js';
+import InlineEditor from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor.js';
 import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment.js';
 import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat.js';
+import AutoImage from '@ckeditor/ckeditor5-image/src/autoimage.js';
 import AutoLink from '@ckeditor/ckeditor5-link/src/autolink.js';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote.js';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold.js';
-import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder.js';
-import CKFinderUploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter.js';
-import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices.js';
 import Code from '@ckeditor/ckeditor5-basic-styles/src/code.js';
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock.js';
 import DataFilter from '@ckeditor/ckeditor5-html-support/src/datafilter.js';
@@ -57,7 +55,6 @@ import SpecialCharactersEssentials from '@ckeditor/ckeditor5-special-characters/
 import SpecialCharactersLatin from '@ckeditor/ckeditor5-special-characters/src/specialcharacterslatin.js';
 import SpecialCharactersMathematical from '@ckeditor/ckeditor5-special-characters/src/specialcharactersmathematical.js';
 import SpecialCharactersText from '@ckeditor/ckeditor5-special-characters/src/specialcharacterstext.js';
-import StandardEditingMode from '@ckeditor/ckeditor5-restricted-editing/src/standardeditingmode.js';
 import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough.js';
 import Subscript from '@ckeditor/ckeditor5-basic-styles/src/subscript.js';
 import Superscript from '@ckeditor/ckeditor5-basic-styles/src/superscript.js';
@@ -72,19 +69,18 @@ import Title from '@ckeditor/ckeditor5-heading/src/title.js';
 import TodoList from '@ckeditor/ckeditor5-list/src/todolist';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline.js';
 import WordCount from '@ckeditor/ckeditor5-word-count/src/wordcount.js';
+import EditorWatchdog from '@ckeditor/ckeditor5-watchdog/src/editorwatchdog.js';
 
-class Editor extends ClassicEditor {}
+class Editor extends InlineEditor {}
 
 // Plugins to include in the build.
 Editor.builtinPlugins = [
 	Alignment,
 	Autoformat,
+	AutoImage,
 	AutoLink,
 	BlockQuote,
 	Bold,
-	CKFinder,
-	CKFinderUploadAdapter,
-	CloudServices,
 	Code,
 	CodeBlock,
 	DataFilter,
@@ -131,7 +127,6 @@ Editor.builtinPlugins = [
 	SpecialCharactersLatin,
 	SpecialCharactersMathematical,
 	SpecialCharactersText,
-	StandardEditingMode,
 	Strikethrough,
 	Subscript,
 	Superscript,
@@ -192,4 +187,4 @@ Editor.defaultConfig = {
 	}
 };
 
-export default Editor;
+export default { Editor, EditorWatchdog };
