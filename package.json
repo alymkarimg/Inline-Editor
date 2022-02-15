@@ -40,7 +40,6 @@
     "@ckeditor/ckeditor5-table": "^32.0.0",
     "@ckeditor/ckeditor5-theme-lark": "^32.0.0",
     "@ckeditor/ckeditor5-typing": "^32.0.0",
-    "@ckeditor/ckeditor5-watchdog": "^32.0.0",
     "@ckeditor/ckeditor5-word-count": "^32.0.0",
     "css-loader": "^5.2.7",
     "postcss": "^7.0.39",
