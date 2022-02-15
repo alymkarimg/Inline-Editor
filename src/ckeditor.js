@@ -5,7 +5,7 @@
 
 // The editor creator to use.
 // import InlineEditorBase from '@ckeditor/ckeditor5-editor-inline/src/inlineeditor';
-import ClassicEditorBase from "@ckeditor/ckeditor5-editor-classic/src/classiceditor";
+import ClassicEditorBase from '@ckeditor/ckeditor5-editor-classic/src/classiceditor.js';
 
 // import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
 import Alignment from "@ckeditor/ckeditor5-alignment/src/alignment.js";
@@ -79,7 +79,7 @@ import SelectAll from "@ckeditor/ckeditor5-select-all/src/selectall";
 import Widget from "@ckeditor/ckeditor5-widget/src/widget";
 // import ButtonView from "@ckeditor/ckeditor5-ui/src/button/buttonview";
 
-export default class ClassicEditor extends ClassicEditorBase {}
+class ClassicEditor extends ClassicEditorBase {}
 
 
 // class InsertSimpleBoxCommand extends Command {
@@ -496,3 +496,5 @@ ClassicEditor.defaultConfig = {
 // 		});
 // 	}
 // }
+
+export default ClassicEditor;
